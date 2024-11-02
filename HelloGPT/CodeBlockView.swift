@@ -7,19 +7,42 @@
 
 import SwiftUI
 
-struct CodeBlockView: View {
-    var codeText: String
+// Helper structure to represent a part of the Markdown content
+struct MarkdownPart: Identifiable {
+    let id = UUID()
+    let content: String
+    let isCodeBlock: Bool
+}
 
-    var body: some View {
-        ScrollView(.horizontal) {
-            Text(codeText)
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .cornerRadius(8)
-                .foregroundColor(.green) // Color commonly used for code text
-                .font(.system(.body, design: .monospaced)) // Use monospaced font
-                .frame(maxWidth: .infinity, alignment: .leading)
+// Split the Markdown text into parts, detecting code blocks
+func splitMarkdown(_ text: String) -> [MarkdownPart] {
+    var parts: [MarkdownPart] = []
+    var isInCodeBlock = false
+    var currentContent = ""
+    
+    text.enumerateLines { line, _ in
+        if line.starts(with: "```") {
+            // Toggle code block status
+            if isInCodeBlock {
+                // End of code block
+                parts.append(MarkdownPart(content: currentContent, isCodeBlock: true))
+                currentContent = ""
+            } else if !currentContent.isEmpty {
+                // Add any previous regular text
+                parts.append(MarkdownPart(content: currentContent, isCodeBlock: false))
+                currentContent = ""
+            }
+            isInCodeBlock.toggle()
+        } else {
+            // Add the line to the current content
+            currentContent += line + "\n"
         }
-        .frame(maxWidth: 300, alignment: .leading)
     }
+    
+    // Add any remaining content
+    if !currentContent.isEmpty {
+        parts.append(MarkdownPart(content: currentContent, isCodeBlock: isInCodeBlock))
+    }
+    
+    return parts
 }
