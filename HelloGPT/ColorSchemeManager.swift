@@ -29,5 +29,13 @@ struct ColorSchemeManager {
         colorScheme == .dark ? .clear : .clear
     }
     
+    static func solidBlackBackgroundColor(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark ? .black : .white
+    }
+    
+    static func solidGrayBackgroundColor(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark ? .gray : .gray
+    }
+    
     // Additional color methods as needed
 }

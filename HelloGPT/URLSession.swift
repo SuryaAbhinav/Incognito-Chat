@@ -5,66 +5,76 @@
 //  Created by Surya Abhinav on 2024/10/26.
 //
 
+import Foundation
 
-import SwiftUI
+class LLMRequestComponent: ObservableObject {
+    public var webSocketTask: URLSessionWebSocketTask?
+    @Published var responseText: String = ""
 
-// Custom delegate class to handle streaming response
-class LLMRequestComponent: NSObject, URLSessionDataDelegate {
-    private var responseText = ""
-    private var completion: ((String) -> Void)?
+    func connectToWebSocket() {
+        guard let url = URL(string: "ws://192.168.0.12:8000/ws/chatproxyrequest") else { return }
 
-    func sendRequestToLLM(userMessage: Message, completion: @escaping (String) -> Void) {
-        guard let url = URL(string: "http://127.0.0.1:11434/api/chat") else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let body: [String: Any] = [
-            "model": "llama3",
-            "messages": [
-                ["role": "user", "content": userMessage.text]
-            ]
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-        
-        self.completion = completion
-        
-        // Create a URL session with self as the delegate
-        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-        session.dataTask(with: request).resume()
+        // Create a WebSocket task
+        webSocketTask = URLSession.shared.webSocketTask(with: url)
+        webSocketTask?.resume()
+
+        // Start receiving messages
+        receiveMessages()
     }
 
-    // Called when data is received
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        guard let responseString = String(data: data, encoding: .utf8) else { return }
-        
-        // Split incoming data by new lines and parse each JSON object
-        let lines = responseString.split(separator: "\n")
-        
-        for line in lines {
-            if let lineData = line.data(using: .utf8),
-               let jsonObject = try? JSONSerialization.jsonObject(with: lineData, options: []) as? [String: Any],
-               let message = jsonObject["message"] as? [String: Any],
-               let content = message["content"] as? String {
-                
-                // Append content to responseText
-                responseText += content
-                
-                // Update UI on main thread
-                DispatchQueue.main.async {
-                    self.completion?(self.responseText)
-                }
+    func sendMessage(_ userMessage: String) {
+        self.responseText = ""
+        let message = URLSessionWebSocketTask.Message.string(userMessage)
+
+        webSocketTask?.send(message) { error in
+            if let error = error {
+                print("Error sending message: \(error.localizedDescription)")
             }
         }
     }
     
-    // Handle completion or error
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let error = error {
-            DispatchQueue.main.async {
-                self.completion?("Error: \(error.localizedDescription)")
+    private func receiveMessages() {
+        webSocketTask?.receive { [weak self] result in
+            switch result {
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    self?.processChunk(text)
+                case .data(let data):
+                    if let text = String(data: data, encoding: .utf8) {
+                        self?.processChunk(text)
+                    }
+                @unknown default:
+                    fatalError("Unknown WebSocket message type received")
+                }
+                
+                // Continue receiving messages
+                self?.receiveMessages()
+
+            case .failure(let error):
+                print("Error receiving message: \(error.localizedDescription)")
             }
         }
+    }
+    
+    private func processChunk(_ chunk: String) {
+        // Attempt to parse the chunk as JSON
+        guard let data = chunk.data(using: .utf8),
+              let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+              let message = jsonObject["message"] as? [String: Any],
+              let content = message["content"] as? String else {
+                    print("Failed to parse chunk: \(chunk)")
+                    return
+                }
+
+        
+        // Append the content to responseText and update UI
+        DispatchQueue.main.async {
+            self.responseText += content
+        }
+    }
+    
+    func disconnect() {
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
     }
 }

@@ -22,7 +22,7 @@ struct ChatTitle: View {
             }
             .frame(maxWidth: 300, alignment: .center)
         }
-        .padding()
-        
+        .padding(.vertical, 5)
+        .padding(.horizontal)
     }
 }
