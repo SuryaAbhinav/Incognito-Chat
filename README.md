@@ -80,8 +80,9 @@ To build and run **Incognito Chat**, ensure you have the following:
 
 1. Open the project in Xcode.
 2. Select a simulator or a connected device from the Xcode scheme selector.
-3. Build and run the project by pressing Cmd + R or clicking the Run button in Xcode.
+3. Build and run the project by pressing ```Cmd + R``` or clicking the Run button in Xcode.
 
+---
 
 ## Usage & Features
 
@@ -113,12 +114,14 @@ To build and run **Incognito Chat**, ensure you have the following:
 1. Send Messages:
 
 - Type a message in the input field.
+
 - Click Send to submit the message and receive a response.
 
 2. Refresh Chat:
 
 - Use the Refresh button to clear the chat and start a new session.
 
+---
 
 ## License
 
@@ -138,6 +141,8 @@ This project is licensed under the MIT License.
 
 For the full license text, see the LICENSE file in the repository.
 
+---
+
 ## Tips for Contributing
 
 - Keep it simple and intuitive:
@@ -152,9 +157,17 @@ For the full license text, see the LICENSE file in the repository.
     
     Ensure the app runs smoothly on both MacOS and iOS before submitting a pull request.
 
+---
+
 ## Screenshots
 
-Include screenshots showcasing the app's interface, features, and interactions to give users a quick visual understanding.
+The view on MacOS:
+
+![MacOS View](/Screenshots/MacOS%20View.png)
+
+The view on iOS:
+
+![iOS View](/Screenshots/iOS%20View.png)
 
 
 **Happy chatting with Incognito Chat! 🚀**
