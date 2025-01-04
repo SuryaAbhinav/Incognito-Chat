@@ -30,9 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D8FC98A32CCCCD1A00134A44 /* HelloGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8FC98B62CCCCD1B00134A44 /* HelloGPTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloGPTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8FC98C02CCCCD1B00134A44 /* HelloGPTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloGPTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8FC98A32CCCCD1A00134A44 /* Incognito Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Incognito Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8FC98B62CCCCD1B00134A44 /* Incognito ChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Incognito ChatTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8FC98C02CCCCD1B00134A44 /* Incognito ChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Incognito ChatUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -94,9 +94,9 @@
 		D8FC98A42CCCCD1A00134A44 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8FC98A32CCCCD1A00134A44 /* HelloGPT.app */,
-				D8FC98B62CCCCD1B00134A44 /* HelloGPTTests.xctest */,
-				D8FC98C02CCCCD1B00134A44 /* HelloGPTUITests.xctest */,
+				D8FC98A32CCCCD1A00134A44 /* Incognito Chat.app */,
+				D8FC98B62CCCCD1B00134A44 /* Incognito ChatTests.xctest */,
+				D8FC98C02CCCCD1B00134A44 /* Incognito ChatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,9 +104,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D8FC98A22CCCCD1A00134A44 /* HelloGPT */ = {
+		D8FC98A22CCCCD1A00134A44 /* Incognito Chat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8FC98CA2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPT" */;
+			buildConfigurationList = D8FC98CA2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito Chat" */;
 			buildPhases = (
 				D8FC989F2CCCCD1A00134A44 /* Sources */,
 				D8FC98A02CCCCD1A00134A44 /* Frameworks */,
@@ -119,19 +119,19 @@
 			fileSystemSynchronizedGroups = (
 				D8FC98A52CCCCD1A00134A44 /* HelloGPT */,
 			);
-			name = HelloGPT;
+			name = "Incognito Chat";
 			packageProductDependencies = (
 				D88306872CCE112100E9BC20 /* MarkdownUI */,
 				D88306952CCE333A00E9BC20 /* Splash */,
 				D89B094E2CD66CBF009AFA62 /* HighlightSwift */,
 			);
 			productName = HelloGPT;
-			productReference = D8FC98A32CCCCD1A00134A44 /* HelloGPT.app */;
+			productReference = D8FC98A32CCCCD1A00134A44 /* Incognito Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D8FC98B52CCCCD1B00134A44 /* HelloGPTTests */ = {
+		D8FC98B52CCCCD1B00134A44 /* Incognito ChatTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8FC98CD2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPTTests" */;
+			buildConfigurationList = D8FC98CD2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito ChatTests" */;
 			buildPhases = (
 				D8FC98B22CCCCD1B00134A44 /* Sources */,
 				D8FC98B32CCCCD1B00134A44 /* Frameworks */,
@@ -145,16 +145,16 @@
 			fileSystemSynchronizedGroups = (
 				D8FC98B92CCCCD1B00134A44 /* HelloGPTTests */,
 			);
-			name = HelloGPTTests;
+			name = "Incognito ChatTests";
 			packageProductDependencies = (
 			);
 			productName = HelloGPTTests;
-			productReference = D8FC98B62CCCCD1B00134A44 /* HelloGPTTests.xctest */;
+			productReference = D8FC98B62CCCCD1B00134A44 /* Incognito ChatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D8FC98BF2CCCCD1B00134A44 /* HelloGPTUITests */ = {
+		D8FC98BF2CCCCD1B00134A44 /* Incognito ChatUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8FC98D02CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPTUITests" */;
+			buildConfigurationList = D8FC98D02CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito ChatUITests" */;
 			buildPhases = (
 				D8FC98BC2CCCCD1B00134A44 /* Sources */,
 				D8FC98BD2CCCCD1B00134A44 /* Frameworks */,
@@ -168,11 +168,11 @@
 			fileSystemSynchronizedGroups = (
 				D8FC98C32CCCCD1B00134A44 /* HelloGPTUITests */,
 			);
-			name = HelloGPTUITests;
+			name = "Incognito ChatUITests";
 			packageProductDependencies = (
 			);
 			productName = HelloGPTUITests;
-			productReference = D8FC98C02CCCCD1B00134A44 /* HelloGPTUITests.xctest */;
+			productReference = D8FC98C02CCCCD1B00134A44 /* Incognito ChatUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -198,7 +198,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D8FC989E2CCCCD1A00134A44 /* Build configuration list for PBXProject "HelloGPT" */;
+			buildConfigurationList = D8FC989E2CCCCD1A00134A44 /* Build configuration list for PBXProject "Incognito Chat" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -217,9 +217,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D8FC98A22CCCCD1A00134A44 /* HelloGPT */,
-				D8FC98B52CCCCD1B00134A44 /* HelloGPTTests */,
-				D8FC98BF2CCCCD1B00134A44 /* HelloGPTUITests */,
+				D8FC98A22CCCCD1A00134A44 /* Incognito Chat */,
+				D8FC98B52CCCCD1B00134A44 /* Incognito ChatTests */,
+				D8FC98BF2CCCCD1B00134A44 /* Incognito ChatUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -275,12 +275,12 @@
 /* Begin PBXTargetDependency section */
 		D8FC98B82CCCCD1B00134A44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D8FC98A22CCCCD1A00134A44 /* HelloGPT */;
+			target = D8FC98A22CCCCD1A00134A44 /* Incognito Chat */;
 			targetProxy = D8FC98B72CCCCD1B00134A44 /* PBXContainerItemProxy */;
 		};
 		D8FC98C22CCCCD1B00134A44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D8FC98A22CCCCD1A00134A44 /* HelloGPT */;
+			target = D8FC98A22CCCCD1A00134A44 /* Incognito Chat */;
 			targetProxy = D8FC98C12CCCCD1B00134A44 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -501,7 +501,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloGPT.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HelloGPT";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Incognito Chat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Incognito Chat";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -525,7 +525,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HelloGPT.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HelloGPT";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Incognito Chat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Incognito Chat";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -579,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D8FC989E2CCCCD1A00134A44 /* Build configuration list for PBXProject "HelloGPT" */ = {
+		D8FC989E2CCCCD1A00134A44 /* Build configuration list for PBXProject "Incognito Chat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8FC98C82CCCCD1B00134A44 /* Debug */,
@@ -588,7 +588,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8FC98CA2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPT" */ = {
+		D8FC98CA2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito Chat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8FC98CB2CCCCD1B00134A44 /* Debug */,
@@ -597,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8FC98CD2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPTTests" */ = {
+		D8FC98CD2CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito ChatTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8FC98CE2CCCCD1B00134A44 /* Debug */,
@@ -606,7 +606,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8FC98D02CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "HelloGPTUITests" */ = {
+		D8FC98D02CCCCD1B00134A44 /* Build configuration list for PBXNativeTarget "Incognito ChatUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8FC98D12CCCCD1B00134A44 /* Debug */,
