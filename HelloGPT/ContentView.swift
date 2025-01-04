@@ -12,35 +12,8 @@ import HighlightSwift
 import Combine
 #if os(iOS)
 import UIKit
-//import Combine
 #endif
 
-//struct Wbwv: View {
-//    let part: MarkdownPart
-//    @State private var opacityStates: [Bool]
-//    
-//    init(part: MarkdownPart) {
-//        self.part = part
-//        _opacityStates = State(initialValue: Array(repeating: false, count: part.content.count))
-//    }
-//    
-//    var body: some View {
-//        let words = part.content.split(separator: " ").map(String.init)
-//
-//        ForEach(Array(words.enumerated()), id: \.offset) { index, word in
-//            Text(String(word))
-//                .opacity(opacityStates[index] ? 1 : 0)
-//                .onAppear {
-//                    withAnimation(.easeIn(duration: 0.3).delay(Double(index) * 0.1)) {
-//                        opacityStates[index] = true
-//                    }
-//                }
-//        }
-//            
-//        
-//    }
-//}
-//
 struct Message: Identifiable {
     let id = UUID()
     var text: String
@@ -64,44 +37,92 @@ struct ContentView: View {
 //    @State private var keyboardHeight: CGFloat = 0
     @State var value: CGFloat = 0
     @StateObject private var llmRequestComponent = LLMRequestComponent()
+    @State private var cancellables = Set<AnyCancellable>()
     
     @Environment(\.colorScheme) var colorScheme
     
 
-    var body: some View {            VStack {
-                ChatTitle(title: "Incognito Chat")
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        ForEach(messages) { message in
-                            MessageView(message: message)
+    var body: some View {
+        ZStack {
+            Image("Incognitio")
+                .opacity(0.1)
+            
+            VStack (spacing: 0) {
+                Spacer()
+                HStack {
+                    ChatTitle(title: "Incognito Chat")
+                    Button("Refresh") {
+                        messages = []
+                        llmRequestComponent.disconnect()
+                        llmRequestComponent.connectToWebSocket()
+                        
+                    }
+                    .padding(.trailing, 20)
+                }
+                Divider()
+                VStack (spacing: 0) {
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 20) {
+                            ForEach(messages) { message in
+                                MessageView(message: message)
+                            }
                         }
+                        .padding()
                     }
-                    .padding()
+//                    .safeAreaInset(edge: .bottom) {
+//#if os(iOS)
+//                        MessageInputView(userInput: $userInput, textHeight: $textHeight, onSend: sendMessage)
+//                            .padding(.bottom, keyboardOffset)
+//#else
+//                        MessageInputView(userInput: $userInput, textHeight: $textHeight, onSend: sendMessage)
+//#endif
+//                    }
+#if os(iOS)
+                        MessageInputView(userInput: $userInput, textHeight: $textHeight, onSend: sendMessage)
+                            .padding(.bottom, keyboardOffset)
+#else
+                        MessageInputView(userInput: $userInput, textHeight: $textHeight, onSend: sendMessage)
+#endif
                 }
-                .safeAreaInset(edge: .bottom) {
-                    MessageInputView(userInput: $userInput, textHeight: $textHeight, onSend: sendMessage)
-                        .background(ColorSchemeManager.solidBlackBackgroundColor(for: colorScheme))
+                .navigationTitle("Incognito Chat")
+                .background(ColorSchemeManager.backgroundColor(for: colorScheme))
+                .frame(minWidth: 400, minHeight: 600)
+                .onAppear {
+                    llmRequestComponent.connectToWebSocket()
                 }
+                .onDisappear {
+                    llmRequestComponent.disconnect()
+                }
+#if os(iOS)
+//                .padding(.bottom, keyboardObserver.isKeyboardVisible ? keyboardObserver.keyboardHeight : 0)
+                .animation(.easeOut(duration: 0.25), value: keyboardObserver.keyboardHeight)
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .environmentObject(keyboardObserver)
+#endif
+                
             }
-            .navigationTitle("Incognito Chat")
-            .background(ColorSchemeManager.backgroundColor(for: colorScheme))
-            .frame(minWidth: 400, minHeight: 600)
-            .onAppear {
-                llmRequestComponent.connectToWebSocket()
-            }
-            .onDisappear {
-                llmRequestComponent.disconnect()
-            }
-            #if os(iOS)
-            .padding(.bottom, keyboardObserver.isKeyboardVisible ? keyboardObserver.keyboardHeight : 0)
-                    .animation(.easeOut(duration: 0.25), value: keyboardObserver.keyboardHeight)
-                    .onTapGesture {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                    .environmentObject(keyboardObserver)
-            #endif
-        
+        }
     }
+    
+    #if os(iOS)
+    private var safeAreaInsets: UIEdgeInsets {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene?.windows.first?.safeAreaInsets ?? .zero
+    }
+    
+    private var keyboardOffset: CGFloat {
+        guard keyboardObserver.isKeyboardVisible else { return 0 }
+        
+        let screenHeight = UIScreen.main.bounds.height
+        let adjustmentFactor = screenHeight > 850 ? (safeAreaInsets.bottom + safeAreaInsets.top) : safeAreaInsets.bottom
+//        let adjustmentFactor = safeAreaInsets.bottom + safeAreaInsets.top
+//        print(textHeight)
+        return max(keyboardObserver.keyboardHeight - (adjustmentFactor + textHeight), 0)
+    }
+    #endif
 
     private func sendMessage() {
         guard !userInput.isEmpty else { return }
@@ -152,6 +173,7 @@ struct MessageView: View {
                     .background(ColorSchemeManager.userMsgColor(for: colorScheme))
                     .cornerRadius(16)
                     .frame(maxWidth: .infinity, alignment: .trailing)
+                    .textSelection(.enabled)
             } else {
                 Image(systemName: "brain.fill")
                     .padding(.leading)
@@ -195,7 +217,7 @@ struct MessageInputView: View {
                 .frame(height: textHeight + 20)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
+                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                 )
 
             HStack(alignment: .bottom, spacing: 8) {
@@ -227,7 +249,7 @@ struct MessageInputView: View {
                 Button(action: onSend) {
                     Image(systemName: "arrow.up.circle.fill")
                         .foregroundColor(.gray)
-                        .font(.system(size: 24))
+                        .font(.system(size: 48))
                 }
 //                .frame(width: 44, height: 44)
                 .background(ColorSchemeManager.clearBackground(for: colorScheme))
@@ -268,6 +290,7 @@ struct CodeBlockView: View {
     var body: some View {
         ScrollView(.horizontal) {
             CodeText(content)
+                .textSelection(.enabled)  // Makes code selectable
         }
         .padding(10)
 //        .frame(minWidth: 500, maxWidth: .infinity, alignment: .leading)
@@ -286,6 +309,10 @@ struct MarkdownView: View {
 
     var body: some View {
         Markdown(content)
+            .textSelection(.enabled)
+            .markdownTextStyle(){
+                FontSize(.em(0.85))
+            }
     }
 }
 

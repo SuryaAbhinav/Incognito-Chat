@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "incognito.svg",
+      "filename" : "incognito.1024x973.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "incognito 1.svg",
+      "filename" : "incognito.1024x973 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "incognito 2.svg",
+      "filename" : "incognito.1024x973 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

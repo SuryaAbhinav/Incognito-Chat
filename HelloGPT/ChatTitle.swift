@@ -18,9 +18,10 @@ struct ChatTitle: View {
             HStack {
                 Text(title)
                     .font(.title)
+                    .fontWeight(.bold)
                     .foregroundColor(.primary)
             }
-            .frame(maxWidth: 300, alignment: .center)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, 5)
         .padding(.horizontal)
